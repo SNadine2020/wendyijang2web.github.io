@@ -56,7 +56,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[5.722365243379162,9.588483643440474],[7.999314386480883,14.121220692254495]]);
+        })
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -75,6 +75,9 @@
         .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
         }
         function pop_Spcialisation_0(feature, layer) {
             layer.on({
@@ -244,12 +247,14 @@
         .className += ' fa fa-search';
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{"Image satellite": layer_Imagesatellite_1,'Spécialisation<br /><table><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_Confessionnelle0.png" /></td><td>Confessionnelle</td></tr><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_PrivéeConfessionnelle1.png" /></td><td>Privée - Confessionnelle</td></tr><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_Privée2.png" /></td><td>Privée </td></tr><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_Publique3.png" /></td><td>Publique</td></tr><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_PubliqueConfessionnelle4.png" /></td><td>Publique - Confessionnelle</td></tr><tr><td style="text-align: center;"><img src="legend/Spcialisation_0_PubliquePrivée5.png" /></td><td>Publique - Privée</td></tr></table>': layer_Spcialisation_0,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_Spcialisation_0,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Area'}));
+            propertyName: 'Nom_Arro_1'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
         resetLabels([layer_Spcialisation_0]);
